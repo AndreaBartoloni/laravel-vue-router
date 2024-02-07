@@ -14,18 +14,20 @@ export default {
 		}
 	},
 	mounted() {
-		this.doThings();
+		this.getProjectList();
 
-		// axios.get("indirizzo").then(risultato => {
-		// 	console.log(risultato);
-		// }).catch(errore => {
-		// 	console.error(errore);
-		// });
+	
 	},
 	methods: {
-		doThings() {
-			console.log("App.vue does things");
+		getProjectList(){
+			axios.get(this.store.apiUrl + "cars").then(risultato => {
+				console.log(risultato);
+				this.store.projectList = risultato.data;
+			}).catch(errore => {
+				console.error(errore);
+			});
 		}
+
 	}
 }
 </script>
@@ -33,6 +35,16 @@ export default {
 <template>
 	<main>
 		<AppComponent />
+
+		<div class="container-fluid mt-4">
+			<div class="row justify-content-center">
+					<div class="col-md-4">
+						<div class="card" v-for="project in store.projectList" :key="project">
+							<div class="card-header">{{ project.name }}</div>
+						</div>
+					</div>
+			</div>
+    	</div>
 
 		<button class="btn btn-primary">
 			<font-awesome-icon icon="fa-solid fa-home" class="me-1" />
