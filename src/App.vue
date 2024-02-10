@@ -1,12 +1,13 @@
 <script>
-import AppComponent from "./components/AppComponent.vue"
+
 
 import axios from 'axios'; //importo Axios
-import { store } from "./store.js" //state management
+import { store } from "./store.js"; //state management
+import HeaderMenu from './components/HeaderMenu.vue';
 
 export default {
 	components: {
-		AppComponent
+		HeaderMenu
 	},
 	data() {
 		return {
@@ -15,8 +16,6 @@ export default {
 	},
 	mounted() {
 		this.getProjectList();
-
-	
 	},
 	methods: {
 		getProjectList(){
@@ -33,24 +32,8 @@ export default {
 </script>
 
 <template>
-	<main>
-		<AppComponent />
-
-		<div class="container-fluid mt-4">
-			<div class="row justify-content-center">
-					<div class="col-md-4">
-						<div class="card" v-for="project in store.projectList" :key="project">
-							<div class="card-header">{{ project.name }}</div>
-						</div>
-					</div>
-			</div>
-    	</div>
-
-		<button class="btn btn-primary">
-			<font-awesome-icon icon="fa-solid fa-home" class="me-1" />
-			<span>Primary button</span>
-		</button>
-	</main>
+	<HeaderMenu/>
+	<router-view/>
 </template>
 
 <style lang="scss">
@@ -63,7 +46,5 @@ export default {
 // @use './styles/partials/variables' as *;
 
 // ...qui eventuale SCSS di App.vue
-main {
-	padding: 1rem;
-}
+
 </style>
